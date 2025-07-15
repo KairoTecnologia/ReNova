@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 from django.contrib.auth.models import User
 
 class Curriculo(models.Model):
@@ -58,3 +59,7 @@ class Vaga(models.Model):
     class Meta:
         verbose_name = "Vaga"
         verbose_name_plural = "Vagas"
+=======
+
+# Create your models here.
+>>>>>>> 6f95e80db7c9f4ebd994d9de55fb275495d12e3f
