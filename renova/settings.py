@@ -9,32 +9,22 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-<<<<<<< HEAD
 import os
-=======
-
->>>>>>> 6f95e80db7c9f4ebd994d9de55fb275495d12e3f
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-<<<<<<< HEAD
 SECRET_KEY = 'django-insecure-x3n4f4vznx$8=qi6j%x^nrp^gaje6hiq@gys2a&8ec-4#(&meb'
-=======
-SECRET_KEY = 'django-insecure-46afhz+8uvq)wy5_&q*yu(+nlndblq7u_d9jn!zt*(yepcc!r('
->>>>>>> 6f95e80db7c9f4ebd994d9de55fb275495d12e3f
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -45,7 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'core',
     'rest_framework',
     'corsheaders',
@@ -53,11 +42,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-=======
-]
-
-MIDDLEWARE = [
->>>>>>> 6f95e80db7c9f4ebd994d9de55fb275495d12e3f
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -86,7 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'renova.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -96,9 +79,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-<<<<<<< HEAD
 # Usar quando for usar o Banco de Dados
-#     DATABASES = {
+# DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'renova_db',
@@ -108,9 +90,6 @@ DATABASES = {
 #         'PORT': '5432',
 #     }
 # }
-=======
->>>>>>> 6f95e80db7c9f4ebd994d9de55fb275495d12e3f
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -130,22 +109,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
+LOGIN_URL = '/accounts/login/'
 
-<<<<<<< HEAD
 LANGUAGE_CODE = 'pt-br'
-=======
-LANGUAGE_CODE = 'en-us'
->>>>>>> 6f95e80db7c9f4ebd994d9de55fb275495d12e3f
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -156,7 +130,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-<<<<<<< HEAD
+
 CORS_ALLOW_ALL_ORIGINS = True
-=======
->>>>>>> 6f95e80db7c9f4ebd994d9de55fb275495d12e3f

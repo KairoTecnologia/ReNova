@@ -1,5 +1,4 @@
 from django.db import models
-<<<<<<< HEAD
 from django.contrib.auth.models import User
 
 class Curriculo(models.Model):
@@ -46,12 +45,31 @@ class Empresa(models.Model):
         verbose_name_plural = "Empresas"
 
 class Vaga(models.Model):
+    MODALIDADE_CHOICES = [
+        ("Hibrido", "Híbrido"),
+        ("Home Office", "Home Office"),
+        ("Presencial", "Presencial"),
+    ]
+    CONTRATO_CHOICES = [
+        ("CLT", "CLT"),
+        ("Pessoa Juridica", "Pessoa Jurídica"),
+    ]
+    EXPERIENCIA_CHOICES = [
+        ("Junior", "Júnior"),
+        ("Pleno", "Pleno"),
+        ("Senior", "Sênior"),
+    ]
+
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name="Empresa")
     titulo = models.CharField(max_length=255, verbose_name="Título")
     descricao = models.TextField(verbose_name="Descrição")
     requisitos = models.TextField(blank=True, null=True, verbose_name="Requisitos")
     link_aplicacao = models.URLField(blank=True, null=True, verbose_name="Link para candidatura")
     data_publicacao = models.DateField(auto_now_add=True, verbose_name="Data de publicação")
+    localidade = models.CharField(max_length=100, blank=True, null=True, verbose_name="Localidade")
+    modalidade = models.CharField(max_length=20, choices=MODALIDADE_CHOICES, verbose_name="Modalidade")
+    tipo_contrato = models.CharField(max_length=20, choices=CONTRATO_CHOICES, verbose_name="Tipo de Contrato")
+    experiencia = models.CharField(max_length=10, choices=EXPERIENCIA_CHOICES, verbose_name="Experiência", default="Junior")
 
     def __str__(self):
         return f"{self.titulo} - {self.empresa.nome}"
@@ -59,7 +77,3 @@ class Vaga(models.Model):
     class Meta:
         verbose_name = "Vaga"
         verbose_name_plural = "Vagas"
-=======
-
-# Create your models here.
->>>>>>> 6f95e80db7c9f4ebd994d9de55fb275495d12e3f
