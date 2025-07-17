@@ -23,13 +23,26 @@
         {% if form.non_field_errors %}
           <div class="text-red-600 text-sm mb-2">{{ form.non_field_errors }}</div>
         {% endif %}
-        {% for field in form.visible_fields %}
         <div class="relative">
-          {{ field.errors }}
-          <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="id_{{ field.name }}" required placeholder=" " class="peer w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-50 placeholder-transparent" />
-          <label for="id_{{ field.name }}" class="absolute left-4 top-3 text-gray-500 transition-all duration-200 pointer-events-none peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500">{{ field.label }}</label>
+          {{ form.username.errors }}
+          <input type="text" name="username" id="id_username" required autocomplete="username" placeholder=" " class="peer w-full px-4 pt-6 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white placeholder-transparent" />
+          <label for="id_username" class="absolute left-4 top-2 text-gray-500 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-green-600">Nome</label>
         </div>
-        {% endfor %}
+        <div class="relative">
+          {{ form.email.errors }}
+          <input type="email" name="email" id="id_email" required autocomplete="email" placeholder=" " class="peer w-full px-4 pt-6 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white placeholder-transparent" />
+          <label for="id_email" class="absolute left-4 top-2 text-gray-500 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-green-600">Email</label>
+        </div>
+        <div class="relative">
+          {{ form.password1.errors }}
+          <input type="password" name="password1" id="id_password1" required autocomplete="new-password" placeholder=" " class="peer w-full px-4 pt-6 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white placeholder-transparent" />
+          <label for="id_password1" class="absolute left-4 top-2 text-gray-500 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-green-600">Senha</label>
+        </div>
+        <div class="relative">
+          {{ form.password2.errors }}
+          <input type="password" name="password2" id="id_password2" required autocomplete="new-password" placeholder=" " class="peer w-full px-4 pt-6 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white placeholder-transparent" />
+          <label for="id_password2" class="absolute left-4 top-2 text-gray-500 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-green-600">Senha (novamente)</label>
+        </div>
         <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full mt-2 transition">CADASTRAR</button>
       </form>
     </div>

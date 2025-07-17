@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 pt-10 pb-8">
+  <div class="w-full max-w-xl bg-white rounded-2xl shadow p-8 border border-gray-200">
+    <div class="flex justify-between items-center mb-2">
+      <a href="#" class="text-2xl font-bold text-gray-700">&#8592;</a>
+      <a href="#" class="text-blue-700 font-bold">Salvar e sair</a>
+    </div>
+    <div class="w-full h-2 bg-gray-200 rounded mb-6">
+      <div class="h-2 bg-blue-600 rounded" style="width: 25%"></div>
+    </div>
+    <h1 class="text-2xl font-bold mb-6">Qual é seu nome?</h1>
+    <form method="post" class="flex flex-col gap-4">
+      {% csrf_token %}
+      <div>
+        <label for="nome" class="block font-semibold mb-1">Nome <span class="text-red-500">*</span></label>
+        <input type="text" id="nome" name="nome" required class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="sobrenome" class="block font-semibold mb-1">Sobrenome <span class="text-red-500">*</span></label>
+        <input type="text" id="sobrenome" name="sobrenome" required class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="telefone" class="block font-semibold mb-1">Telefone</label>
+        <input type="tel" id="telefone" name="telefone" class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <div class="flex items-center mt-2">
+          <input type="checkbox" id="mostrar_telefone" name="mostrar_telefone" class="mr-2" />
+          <label for="mostrar_telefone" class="text-sm">Mostrar meu número no ReNova</label>
+        </div>
+      </div>
+      <div>
+        <label for="pais" class="block font-semibold mb-1">País</label>
+        <input type="text" id="pais" name="pais" value="Brasil" readonly class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-gray-100" />
+      </div>
+      <div>
+        <label for="endereco" class="block font-semibold mb-1">Endereço <span class="text-xs text-gray-500">(não exibido para empresas)</span></label>
+        <input type="text" id="endereco" name="endereco" class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="cidade_estado" class="block font-semibold mb-1">Cidade, estado <span class="text-red-500">*</span></label>
+        <input type="text" id="cidade_estado" name="cidade_estado" required class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="cep" class="block font-semibold mb-1">Código postal</label>
+        <input type="text" id="cep" name="cep" class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <button type="submit" class="mt-6 w-40 bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg text-center transition">Continuar</button>
+    </form>
+  </div>
+  <footer class="mt-10 text-center text-gray-500 text-sm">
+    ©2025 ReNova - <a href="#" class="underline">Cookies, Privacidade e Termos</a>
+  </footer>
+</div>
+{% endblock %} 

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 pt-10 pb-8">
+  <div class="w-full max-w-xl bg-white rounded-2xl shadow p-8 border border-gray-200">
+    <div class="flex justify-between items-center mb-2">
+      <a href="{% url 'cadastro_manual_escolaridade_revisao' %}" class="text-2xl font-bold text-gray-700">&#8592;</a>
+      <a href="#" class="text-blue-700 font-bold">Salvar e sair</a>
+    </div>
+    <div class="w-full h-2 bg-gray-200 rounded mb-6">
+      <div class="h-2 bg-blue-600 rounded" style="width: 75%"></div>
+    </div>
+    <h1 class="text-2xl font-bold mb-2">Adicionar experiência profissional</h1>
+    <p class="mb-6 text-gray-600">Preencha o formulário abaixo. <span class="text-red-500">*obrigatório</span></p>
+    <form method="post" class="flex flex-col gap-4">
+      {% csrf_token %}
+      <div>
+        <label for="id_cargo" class="block font-semibold mb-1">Cargo <span class="text-red-500">*</span></label>
+        <input type="text" id="id_cargo" name="cargo" value="{{ form.cargo.value|default_if_none:'' }}" required class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="id_empresa" class="block font-semibold mb-1">Empresa</label>
+        <input type="text" id="id_empresa" name="empresa" value="{{ form.empresa.value|default_if_none:'' }}" class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="id_pais" class="block font-semibold mb-1">País</label>
+        <div class="flex items-center gap-2">
+          <input type="text" id="id_pais" name="pais" value="{{ form.pais.value|default_if_none:'Brasil' }}" readonly class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-gray-100" />
+          <a href="#" class="text-blue-700 text-sm font-semibold ml-2">Alterar</a>
+        </div>
+      </div>
+      <div>
+        <label for="id_cidade_estado" class="block font-semibold mb-1">Cidade, estado</label>
+        <input type="text" id="id_cidade_estado" name="cidade_estado" value="{{ form.cidade_estado.value|default_if_none:'' }}" class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">Período</label>
+        <div class="flex items-center gap-2 mb-2">
+          <input type="checkbox" id="id_emprego_atual" name="emprego_atual" {% if form.emprego_atual.value %}checked{% endif %} class="mr-2" />
+          <label for="id_emprego_atual" class="text-sm">Emprego atual</label>
+        </div>
+        <div class="flex gap-4 mb-2">
+          <div>
+            <label class="block text-xs font-semibold mb-1">De</label>
+            <div class="flex gap-2">
+              <select id="id_de_mes" name="de_mes" class="border border-gray-400 rounded-xl px-2 py-2">
+                {% for value, label in form.de_mes.field.choices %}
+                  <option value="{{ value }}" {% if form.de_mes.value == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+              <select id="id_de_ano" name="de_ano" class="border border-gray-400 rounded-xl px-2 py-2">
+                {% for value, label in form.de_ano.field.choices %}
+                  <option value="{{ value }}" {% if form.de_ano.value == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Até</label>
+            <div class="flex gap-2">
+              <select id="id_ate_mes" name="ate_mes" class="border border-gray-400 rounded-xl px-2 py-2">
+                {% for value, label in form.ate_mes.field.choices %}
+                  <option value="{{ value }}" {% if form.ate_mes.value == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+              <select id="id_ate_ano" name="ate_ano" class="border border-gray-400 rounded-xl px-2 py-2">
+                {% for value, label in form.ate_ano.field.choices %}
+                  <option value="{{ value }}" {% if form.ate_ano.value == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label for="id_descricao" class="block font-semibold mb-1">Descrição</label>
+        <textarea id="id_descricao" name="descricao" rows="5" class="w-full border border-gray-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ form.descricao.value|default_if_none:'' }}</textarea>
+      </div>
+      <div class="flex gap-4 mt-4">
+        <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg text-center transition" {% if edit_idx %}name="salvar_edicao"{% endif %}>Salvar</button>
+        <button type="submit" name="pular" class="bg-white border border-blue-700 text-blue-700 font-bold py-3 px-8 rounded-lg text-center transition">Pular</button>
+      </div>
+    </form>
+  </div>
+  <footer class="mt-10 text-center text-gray-500 text-sm">
+    ©2025 ReNova - <a href="#" class="underline">Cookies, Privacidade e Termos</a>
+  </footer>
+</div>
+{% endblock %} 
