@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+{% load static %}
+
+{% block content %}
+<div class="flex justify-center items-start min-h-screen bg-gray-100 pt-24 pb-8">
+  <div class="bg-white p-10 rounded-2xl shadow-lg w-full max-w-md flex flex-col items-center">
+    <img src="{% static 'core/LogoReNova.png' %}" alt="Logo ReNova" class="h-14 mb-4">
+    <h2 class="text-2xl font-bold mb-1 text-center">Acesso para usuários</h2>
+    {% if socialaccount_providers %}
+    <div class="w-full flex flex-col gap-3 mt-6 mb-4">
+      {% providers_media_js %}
+      {% for provider in socialaccount_providers %}
+        <a href="{% provider_login_url provider.id %}" class="flex items-center justify-center gap-2 border border-gray-300 rounded-full py-2 text-lg font-semibold hover:bg-gray-50 transition">
+          {% if provider.id == 'google' %}
+            <svg class="h-6 w-6" viewBox="0 0 48 48"><g><path fill="#4285F4" d="M24 9.5c3.54 0 6.7 1.22 9.19 3.22l6.85-6.85C36.68 2.7 30.7 0 24 0 14.82 0 6.68 5.48 2.69 13.44l7.98 6.2C12.13 13.13 17.62 9.5 24 9.5z"/><path fill="#34A853" d="M46.1 24.5c0-1.64-.15-3.22-.42-4.74H24v9.04h12.42c-.54 2.9-2.18 5.36-4.64 7.04l7.18 5.6C43.32 37.3 46.1 31.4 46.1 24.5z"/><path fill="#FBBC05" d="M10.67 28.04c-1.04-3.1-1.04-6.44 0-9.54l-7.98-6.2C.86 16.7 0 20.24 0 24c0 3.76.86 7.3 2.69 10.7l7.98-6.2z"/><path fill="#EA4335" d="M24 48c6.7 0 12.68-2.2 16.85-6.02l-7.18-5.6c-2.01 1.35-4.6 2.12-7.67 2.12-6.38 0-11.87-3.63-14.33-8.94l-7.98 6.2C6.68 42.52 14.82 48 24 48z"/></g></svg>
+          {% elif provider.id == 'facebook' %}
+            <svg class="h-6 w-6" viewBox="0 0 24 24"><path fill="#1877F3" d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 6.006 4.438 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.797c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.235 2.686.235v2.953h-1.513c-1.491 0-1.953.926-1.953 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.562 22.954 24 18.006 24 12z"/></svg>
+          {% elif provider.id == 'linkedin' %}
+            <svg class="h-6 w-6" viewBox="0 0 24 24"><path fill="#0A66C2" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
+          {% elif provider.id == 'apple' %}
+            <svg class="h-6 w-6" viewBox="0 0 24 24"><path fill="#000" d="M16.365 1.43c0 1.14-.93 2.07-2.07 2.07-1.14 0-2.07-.93-2.07-2.07 0-1.14.93-2.07 2.07-2.07 1.14 0 2.07.93 2.07 2.07zm4.13 4.13c-.13-.13-.27-.25-.41-.36-.14-.11-.29-.21-.44-.3-.15-.09-.31-.17-.47-.24-.16-.07-.33-.13-.5-.18-.17-.05-.34-.09-.52-.12-.18-.03-.36-.05-.54-.05-.18 0-.36.02-.54.05-.18.03-.35.07-.52.12-.17.05-.34.11-.5.18-.16.07-.32.15-.47.24-.15.09-.3.19-.44.3-.14.11-.28.23-.41.36-.13.13-.25.27-.36.41-.11.14-.21.29-.3.44-.09.15-.17.31-.24.47-.07.16-.13.33-.18.5-.05.17-.09.34-.12.52-.03.18-.05.36-.05.54 0 .18.02.36.05.54.03.18.07.35.12.52.05.17.11.34.18.5.07.16.15.32.24.47.09.15.19.3.3.44.11.14.23.28.36.41.13.13.27.25.41.36.14.11.29.21.44.3.15.09.31.17.47.24.16.07.33.13.5.18.17.05.34.09.52.12.18.03.36.05.54.05.18 0 .36-.02.54-.05.18-.03.35-.07.52-.12.17-.05.34-.11.5-.18.16-.07.32-.15.47-.24.15-.09.3-.19.44-.3.14-.11.28-.23.41-.36.13-.13.25-.27.36-.41.11-.14.21-.29.3-.44.09-.15-.17-.31-.24-.47-.07-.16-.13-.33-.18-.5-.05-.17-.09-.34-.12-.52-.03-.18-.05-.36-.05-.54 0-.18-.02-.36-.05-.54-.03-.18-.07-.35-.12-.52-.05-.17-.11-.34-.18-.5-.07-.16-.15-.32-.24-.47-.09-.15-.19-.3-.3-.44-.11-.14-.23-.28-.36-.41z"/></svg>
+          {% elif provider.id == 'microsoft' %}
+            <svg class="h-6 w-6" viewBox="0 0 24 24"><path fill="#F25022" d="M1 1h10.5v10.5H1z"/><path fill="#7FBA00" d="M12.5 1H23v10.5H12.5z"/><path fill="#00A4EF" d="M1 12.5h10.5V23H1z"/><path fill="#FFB900" d="M12.5 12.5H23V23H12.5z"/></svg>
+          {% endif %}
+          {{ provider.name }}
+        </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="w-full flex flex-col items-center mt-6">
+      <span class="text-gray-500 mb-2">ou insira seu e-mail</span>
+      <form method="post" action="{% url 'account_login' %}" class="w-full flex flex-col gap-4">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="text-red-600 text-sm mb-2">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="relative">
+          <input type="text" name="login" id="id_login" required autocomplete="username" placeholder=" " class="peer w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 placeholder-transparent" />
+          <label for="id_login" class="absolute left-4 top-3 text-gray-500 transition-all duration-200 pointer-events-none peer-focus:-top-4 peer-focus:text-xs peer-focus:text-blue-600 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500">E-mail</label>
+        </div>
+        <div class="relative">
+          <input type="password" name="password" id="id_password" required autocomplete="current-password" placeholder=" " class="peer w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 placeholder-transparent" />
+          <label for="id_password" class="absolute left-4 top-3 text-gray-500 transition-all duration-200 pointer-events-none peer-focus:-top-4 peer-focus:text-xs peer-focus:text-blue-600 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500">Senha</label>
+        </div>
+        <button type="submit" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 px-4 rounded-full mt-2 transition">CONTINUAR</button>
+      </form>
+    </div>
+    <div class="w-full text-center mt-6">
+      <span class="text-gray-700 font-semibold">Você é novo no ReNova?</span><br>
+      <span class="text-gray-600">Cadastrar-se como <a href="{% url 'account_signup' %}" class="text-blue-700 font-bold">Candidato</a> ou <a href="{% url 'account_signup' %}" class="text-blue-700 font-bold">Empresa</a></span>
+    </div>
+  </div>
+</div>
+{% endblock %} 

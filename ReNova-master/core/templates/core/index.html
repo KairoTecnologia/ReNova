@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Botões de ação -->
+<div class="flex justify-center gap-4 mt-8">
+    <a href="{% url 'anunciar_vaga' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+        Anunciar vagas grátis
+    </a>
+    <a href="{% url 'cadastrar_curriculo' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+        Cadastrar CV grátis
+    </a>
+</div>
+<div class="p-6 bg-white shadow-md mt-4">
+    <form method="get" action="" class="flex justify-center">
+        <input type="text" name="q" value="{{ filtros.q|default:'' }}" placeholder="Busque por nome da vaga" class="border p-2 rounded w-1/2">
+        <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Buscar</button>
+    </form>
+    <div class="mt-4 text-center">
+        <a href="{% url 'cadastrar_curriculo' %}" class="text-blue-600 underline">Cadastre seu currículo</a>
+    </div>
+</div>
+<!-- Número de vagas encontradas -->
+<div class="px-6 pt-6 pb-2 font-semibold text-gray-700">
+    {{ vagas|length }} vagas encontradas
+</div>
+<div class="flex px-6">
+    <!-- Filtro lateral -->
+    <aside class="w-full md:w-1/4 lg:w-1/5 mr-6">
+        <form method="get" action="">
+            <div class="bg-white p-4 shadow rounded mb-6">
+                <h3 class="font-bold mb-4">Filtrar</h3>
+                <div class="mb-4">
+                    <label class="block font-semibold mb-2">Modelo de trabalho</label>
+                    <div>
+                        <label class="block"><input type="checkbox" name="modalidade" value="Presencial" {% if 'Presencial' in filtros.modalidade %}checked{% endif %}> Presencial</label>
+                        <label class="block"><input type="checkbox" name="modalidade" value="Hibrido" {% if 'Hibrido' in filtros.modalidade %}checked{% endif %}> Híbrido</label>
+                        <label class="block"><input type="checkbox" name="modalidade" value="Home Office" {% if 'Home Office' in filtros.modalidade %}checked{% endif %}> Remoto</label>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block font-semibold mb-2">Estado</label>
+                    <select name="estado" class="w-full border rounded p-2">
+                        <option value="">Selecione ou digite</option>
+                        {% for est in estados %}
+                            <option value="{{ est }}" {% if filtros.estado == est %}selected{% endif %}>{{ est }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block font-semibold mb-2">Cidade</label>
+                    <select name="cidade" class="w-full border rounded p-2">
+                        <option value="">Selecione ou digite</option>
+                        {% for cid in cidades %}
+                            <option value="{{ cid }}" {% if filtros.cidade == cid %}selected{% endif %}>{{ cid }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block font-semibold mb-2">Empresa</label>
+                    <select name="empresa" class="w-full border rounded p-2">
+                        <option value="">Selecione ou digite</option>
+                        {% for emp in empresas %}
+                            <option value="{{ emp.empresa__id }}" {% if filtros.empresa_id == emp.empresa__id|stringformat:'s' %}selected{% endif %}>{{ emp.empresa__nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block font-semibold mb-2">Tipo de Vaga</label>
+                    <select name="tipo_vaga" class="w-full border rounded p-2">
+                        <option value="">Selecione</option>
+                        {% for tipo in tipos_vaga %}
+                            <option value="{{ tipo }}" {% if filtros.tipo_vaga == tipo %}selected{% endif %}>{{ tipo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block font-semibold mb-2">Mais filtros</label>
+                    <div class="flex items-center mb-2">
+                        <input type="checkbox" id="pcd" class="mr-2" disabled>
+                        <label for="pcd">Vagas também para PcD</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="feedback" class="mr-2" disabled>
+                        <label for="feedback">Apenas empresas com selo de feedback</label>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filtrar</button>
+            </div>
+        </form>
+    </aside>
+    <!-- Grid de vagas -->
+    <section class="w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for vaga in vagas %}
+            <div class="bg-white p-4 shadow rounded flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center mb-2">
+                        <span class="font-bold text-gray-700 mr-2">{{ vaga.empresa.nome }}</span>
+                        <!-- Badge ou ícone opcional -->
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">{{ vaga.titulo }}</h3>
+                    <p class="text-gray-700 mb-2">{{ vaga.descricao|truncatechars:80 }}</p>
+                    <div class="flex flex-wrap text-sm text-gray-600 space-x-2 mb-2">
+                        <span>📍 {{ vaga.localidade }}</span>
+                        <span>💼 {{ vaga.modalidade }}</span>
+                        <span>📄 {{ vaga.tipo_contrato }}</span>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-500 mt-2">
+                    Publicada em: {{ vaga.data_publicacao }}
+                </div>
+            </div>
+            {% empty %}
+            <p class="col-span-3 text-center">Nenhuma vaga encontrada.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

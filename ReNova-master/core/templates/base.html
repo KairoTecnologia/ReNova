@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ReNova</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    {% load static %}
+    <!-- Header com logo e menu -->
+    <header class="flex items-center justify-between p-4 bg-white shadow-md">
+        <div class="flex items-center">
+            <a href="{% url 'index' %}"><img src="{% static 'core/LogoReNova.png' %}" alt="Logo ReNova" class="h-12 w-auto"></a>
+        </div>
+        <nav class="flex items-center gap-6">
+            <a href="#" class="text-gray-700 font-semibold hover:text-blue-600 transition">Avaliação da Empresa</a>
+            <a href="#" class="text-gray-700 font-semibold hover:text-blue-600 transition">Cargos e salários</a>
+            <a href="{% url 'anunciar_vaga' %}" class="text-blue-700 font-semibold hover:underline">Empresas? Anunciar vagas</a>
+            {% if user.is_authenticated %}
+                <span class="text-gray-700">Olá, {{ user.email|default:user.username }}</span>
+                <a href="{% url 'account_logout' %}" class="text-red-600 font-semibold hover:underline">Sair</a>
+            {% else %}
+                <a href="{% url 'account_login' %}" class="text-blue-600 font-semibold hover:underline">Fazer login</a>
+            {% endif %}
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+</body>
+</html> 
