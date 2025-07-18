@@ -10,6 +10,7 @@ urlpatterns = [
     path('cargos-salarios/', views.cargos_salarios, name='cargos_salarios'),
     path('api/vagas/', views.VagaListAPI.as_view(), name='api_vagas'),
     path('api/curriculos/', views.CurriculoCreateAPI.as_view(), name='api_curriculos'),
+    path('api/consentimento-cookie/', views.ConsentimentoCookieAPI.as_view(), name='api_consentimento_cookie'),
     path('cadastrar-curriculo/manual/', views.cadastro_manual_pessoal, name='cadastro_manual_pessoal'),
     path('cadastro/manual/escolaridade/', views.cadastro_manual_escolaridade, name='cadastro_manual_escolaridade'),
     path('cadastro/manual/escolaridade/revisao/', views.cadastro_manual_escolaridade_revisao, name='cadastro_manual_escolaridade_revisao'),
@@ -19,5 +20,9 @@ urlpatterns = [
     path('cadastro/manual/certificacoes/', views.cadastro_manual_certificacoes, name='cadastro_manual_certificacoes'),
     path('cadastro/manual/revisao-final/', views.cadastro_manual_revisao_final, name='cadastro_manual_revisao_final'),
     path('curriculo/baixar/', views.baixar_curriculo, name='baixar_curriculo'),
+    path('perfil/', views.perfil, name='perfil'),
+    path('configuracoes/', views.configuracoes, name='configuracoes'),
+    path('excluir-conta/', views.excluir_conta, name='excluir_conta'),
+    path('ajuda/', views.ajuda, name='ajuda'),
    
 ]

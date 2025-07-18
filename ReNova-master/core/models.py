@@ -1,6 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# Novo modelo para consentimento de cookies
+class ConsentimentoCookie(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Usuário")
+    session_key = models.CharField(max_length=40, null=True, blank=True, verbose_name="Chave de Sessão")
+    consentimento = models.CharField(max_length=10, choices=[('accepted', 'Aceito'), ('rejected', 'Recusado')], verbose_name="Consentimento")
+    data_registro = models.DateTimeField(auto_now_add=True, verbose_name="Data do Registro")
+
+    def __str__(self):
+        if self.usuario:
+            return f"Consentimento de {getattr(self.usuario, 'username', 'Usuário')}: {self.consentimento}"
+        return f"Consentimento anônimo: {self.consentimento}"
+
+    class Meta:
+        verbose_name = "Consentimento de Cookie"
+        verbose_name_plural = "Consentimentos de Cookies"
+
 class Curriculo(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Usuário")
     resumo = models.TextField(blank=True, null=True, verbose_name="Resumo")

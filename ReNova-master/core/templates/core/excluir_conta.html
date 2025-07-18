@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-lg mx-auto mt-16 bg-white p-8 rounded shadow text-center">
+    <h1 class="text-2xl font-bold text-red-600 mb-4">Excluir Conta</h1>
+    <p class="mb-6">Tem certeza que deseja excluir sua conta? <br>Esta ação é <span class="font-semibold text-red-600">irreversível</span> e todos os seus dados serão removidos.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700">Sim, excluir minha conta</button>
+        <a href="{% url 'configuracoes' %}" class="ml-4 px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">Cancelar</a>
+    </form>
+</div>
+{% endblock %} 
