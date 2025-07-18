@@ -10,6 +10,11 @@ from django.views.decorators.http import require_http_methods
 from .forms import EscolaridadeForm, EscolaridadeDetalhadaForm, ExperienciaDetalhadaForm
 import base64
 from django.http import HttpResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import ConsentimentoCookie
+from django.contrib.auth import logout
 
 # API para listar vagas
 class VagaListAPI(generics.ListAPIView):
@@ -121,6 +126,9 @@ def avaliacao_empresa(request):
 
 def cargos_salarios(request):
     return render(request, "core/cargos_salarios.html")
+
+def ajuda(request):
+    return render(request, 'core/ajuda.html')
 
 def cadastro_manual_pessoal(request):
     if request.method == 'POST':
@@ -304,3 +312,40 @@ def baixar_curriculo(request):
     response = HttpResponse(file_bytes, content_type='application/octet-stream')
     response['Content-Disposition'] = f'inline; filename="{file_name}"'
     return response
+
+class ConsentimentoCookieAPI(APIView):
+    def post(self, request):
+        consentimento = request.data.get('consentimento')
+        if consentimento not in ['accepted', 'rejected']:
+            return Response({'erro': 'Valor de consentimento inválido.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        usuario = request.user if request.user.is_authenticated else None
+        session_key = request.session.session_key
+        if not session_key:
+            request.session.create()
+            session_key = request.session.session_key
+
+        obj, created = ConsentimentoCookie.objects.update_or_create(
+            usuario=usuario,
+            session_key=session_key if not usuario else None,
+            defaults={'consentimento': consentimento}
+        )
+        return Response({'mensagem': 'Consentimento registrado com sucesso.'}, status=status.HTTP_200_OK)
+
+@login_required
+def perfil(request):
+    return render(request, 'core/perfil.html', {'usuario': request.user})
+
+@login_required
+def configuracoes(request):
+    return render(request, 'core/configuracoes.html', {'usuario': request.user})
+
+@login_required
+def excluir_conta(request):
+    if request.method == 'POST':
+        usuario = request.user
+        logout(request)
+        usuario.delete()
+        messages.success(request, 'Sua conta foi excluída com sucesso.')
+        return redirect('index')
+    return render(request, 'core/excluir_conta.html', {'usuario': request.user})
